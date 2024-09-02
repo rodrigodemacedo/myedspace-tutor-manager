@@ -1,6 +1,134 @@
-instalacao com curl
-https://www.youtube.com/watch?v=E59kj35wzL4
-https://materialpublic.imd.ufrn.br/curso/disciplina/3/77/5/6#:~:text=O%20Comando%20%22up%22%20do%20Sail,execu%C3%A7%C3%B5es%20ser%C3%A3o%20bem%20mais%20r%C3%A1pidas.
+# Laravel Project Environment Setup
+
+This guide will walk you through setting up the development environment for the `myedspace-tutor-manager` project using Laravel.
+
+## 1. Initialize a Laravel 11.x Project
+
+1. Run the command to create a new Laravel project:
+    ```bash
+    composer create-project --prefer-dist laravel/laravel myedspace-tutor-manager "11.*"
+    cd myedspace-tutor-manager
+    ```
+
+2. Check if PHP 8.3 is installed:
+    ```bash
+    php -v
+    ```
+   - If necessary, adjust your local environment configuration to use PHP 8.3.
+
+## 2. Configure the Database
+
+1. Create a MySQL database for the project:
+    ```bash
+    mysql -u root -p
+    CREATE DATABASE myedspace_tutor_manager;
+    ```
+
+2. In the `.env` file, configure the database credentials:
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=myedspace_tutor_manager
+    DB_USERNAME=yourUsername
+    DB_PASSWORD=yourPassword
+    ```
+
+3. Generate the application key:
+    ```bash
+    php artisan key:generate
+    ```
+
+4. Run the migrations, as after configuring MySQL and providing an empty database, it will be necessary to recreate the tables:
+    ```bash
+    php artisan migrate
+    ```
+
+## 3. Install Filament 3.x
+
+1. Install Filament:
+    ```bash
+    composer require filament/filament:"^3.0"
+    ```
+
+2. Publish Filament's configuration files and assets:
+    ```bash
+    php artisan filament:install
+    ```
+
+## 4. Install Tailwind CSS 3.x
+
+1. Install Node.js dependencies, including Tailwind CSS:
+    ```bash
+    npm install
+    npm install tailwindcss postcss autoprefixer --save-dev
+    ```
+
+2. Initialize Tailwind CSS and configure the `tailwind.config.js` file:
+    ```bash
+    npx tailwindcss init
+    ```
+
+   - Edit the `tailwind.config.js`:
+     ```javascript
+     module.exports = {
+         content: [
+             './resources/**/*.blade.php',
+             './resources/**/*.js',
+             './resources/**/*.vue',
+         ],
+         theme: {
+             extend: {},
+         },
+         plugins: [],
+     }
+     ```
+
+3. Create the `resources/css/app.css` file and add Tailwind directives:
+    ```css
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+    ```
+
+4. Update the `vite.config.js` file to process the CSS:
+    ```javascript
+    import { defineConfig } from 'vite';
+    import laravel from 'laravel-vite-plugin';
+
+    export default defineConfig({
+        plugins: [
+            laravel({
+                input: ['resources/css/app.css', 'resources/js/app.js'],
+                refresh: true,
+            }),
+        ],
+    });
+    ```
+
+5. Compile the assets:
+    ```bash
+    npm run dev
+    ```
+
+## 5. Configure Laravel Pint for Code Styling
+
+1. Install Laravel Pint:
+    ```bash
+    composer require laravel/pint --dev
+    ```
+
+2. Run Pint to ensure the code follows PSR-12 standards:
+    ```bash
+    ./vendor/bin/pint
+    ```
+
+
+
+
+
+
+
 
 
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
