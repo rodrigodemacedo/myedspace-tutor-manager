@@ -1,3 +1,8 @@
+instalacao com curl
+https://www.youtube.com/watch?v=E59kj35wzL4
+https://materialpublic.imd.ufrn.br/curso/disciplina/3/77/5/6#:~:text=O%20Comando%20%22up%22%20do%20Sail,execu%C3%A7%C3%B5es%20ser%C3%A3o%20bem%20mais%20r%C3%A1pidas.
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
 <p align="center">
