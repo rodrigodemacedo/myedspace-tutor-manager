@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\TutorResource\Pages;
 use App\Models\Tutor;
+use Filament\Support\Colors\Color;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -60,6 +61,11 @@ class TutorResource extends Resource
                     ->nullable()
                     ->maxLength(1000),
 
+                Forms\Components\Select::make('students')
+                    ->label('Students')
+                    ->multiple() // Allows multiple selection
+                    ->relationship('students', 'name') // Defines the relationship and the field to be displayed
+                    ->preload(), // Load options on form initialization
             ]);
     }
 
@@ -91,7 +97,13 @@ class TutorResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->badge()
-                    ->formatStateUsing(fn (string $state): string => self::$subjects[$state])
+                    ->formatStateUsing(fn (string $state): string => self::$subjects[$state]),
+
+                Tables\Columns\TextColumn::make('students')
+                    ->label('Students')
+                    ->getStateUsing(function ($record) {
+                        return $record->students->pluck('name')->join(', ');
+                    })
             ])
 
             ->filters([
