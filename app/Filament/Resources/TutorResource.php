@@ -92,6 +92,7 @@ class TutorResource extends Resource
                 Tables\Columns\TextColumn::make('subjects')
                     ->label('Subjects')
                     ->sortable()
+                    ->searchable()
                     ->badge()
                     ->formatStateUsing(fn (string $state) : string => self::$subjects[$state])
             ])
