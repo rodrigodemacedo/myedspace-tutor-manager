@@ -49,6 +49,12 @@ class StudentResource extends Resource
                     ->required()
                     ->placeholder('Select a grade level')
                     ->options(self::$gradeLevels),
+
+                Forms\Components\Select::make('tutors')
+                    ->label('Tutors')
+                    ->multiple() // Allows multiple selection
+                    ->relationship('tutors', 'name') // Defines the relationship and the field to be displayed
+                    ->preload(), // Load options on form initialization
             ]);
     }
 
@@ -72,7 +78,13 @@ class StudentResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->badge()
-                    ->formatStateUsing(fn (string $state): string => self::$gradeLevels[$state])
+                    ->formatStateUsing(fn (string $state): string => self::$gradeLevels[$state]),
+                
+                Tables\Columns\TextColumn::make('tutors')
+                    ->label('Tutors')
+                    ->getStateUsing(function ($record) {
+                        return $record->tutors->pluck('name')->join(', ');
+                    })
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

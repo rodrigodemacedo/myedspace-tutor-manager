@@ -21,4 +21,9 @@ class Tutor extends Model
     protected $casts = [
         'subjects' => 'array',
     ];
+
+    public function students()
+    {
+        return $this->belongsToMany(Student::class);
+    }
 }

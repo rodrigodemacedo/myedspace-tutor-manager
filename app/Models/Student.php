@@ -14,4 +14,8 @@ class Student extends Model
         'email',
         'grade_level',
     ];
+
+    public function tutors(){
+        return $this->belongsToMany(Tutor::class);
+    }
 }
