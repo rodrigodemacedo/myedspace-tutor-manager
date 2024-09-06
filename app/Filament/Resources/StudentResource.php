@@ -59,7 +59,7 @@ class StudentResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->badge()
-                    ->formatStateUsing(fn (string $state) : string => self::$gradeLevels[$state])
+                    ->formatStateUsing(fn (string $state): string => self::$gradeLevels[$state])
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
