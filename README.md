@@ -44,11 +44,20 @@ This guide will walk you through setting up the development environment for the 
     php artisan migrate
     ```
 
-## 3. Install Filament 3.x
+## 3. Install Livewire, dependency of Filament
+
+1. Install Livewire:
+    ```bash
+    composer require livewire/livewire
+    php artisan livewire:publish --config
+    php artisan livewire:publish --assets
+    ```
+
+## 4. Install Filament 3.x
 
 1. Install Filament:
     ```bash
-    composer require filament/filament:"^3.0"
+    composer require filament/filament
     ```
 
 2. Publish Filament's configuration files and assets:
@@ -56,7 +65,22 @@ This guide will walk you through setting up the development environment for the 
     php artisan filament:install
     ```
 
-## 4. Install Tailwind CSS 3.x
+3. Panel admin installation:
+    ```bash
+    php artisan filament:install --panels
+    ```
+
+4. To expose advanced configuration options for Filament:
+    ```bash
+    php artisan vendor:publish --tag=filament-config
+    ```
+
+5. Create an administrator account for your admin panel:
+    ```bash
+    php artisan make:filament-user
+    ```
+
+## 5. Install Tailwind CSS 3.x
 
 1. Install Node.js dependencies, including Tailwind CSS:
     ```bash
@@ -111,7 +135,7 @@ This guide will walk you through setting up the development environment for the 
     npm run dev
     ```
 
-## 5. Configure Laravel Pint for Code Styling
+## 6. Configure Laravel Pint for Code Styling
 
 1. Install Laravel Pint:
     ```bash
@@ -123,9 +147,22 @@ This guide will walk you through setting up the development environment for the 
     ./vendor/bin/pint
     ```
 
+## 7. Final Configurations
+
+1. Expose the storage path for the avatar images
+    ```bash
+    php artisan storage:link
+    ```
 
 
 
+## 7. Run
+
+1. Run the app:
+    ```bash
+    php artisan serve
+    ```
+Open http://localhost:8000/admin and log in with the credentials you created in the 4.5 step above.
 
 
 
