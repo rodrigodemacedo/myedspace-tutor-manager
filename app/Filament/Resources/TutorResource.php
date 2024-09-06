@@ -22,7 +22,7 @@ class TutorResource extends Resource
     {
         return $form
             ->schema([
-                
+
                 Forms\Components\TextInput::make('name')
                     ->label('Name')
                     ->required()
@@ -32,9 +32,6 @@ class TutorResource extends Resource
                     ->label('Email')
                     ->required()
                     ->email()
-                //     ->rules([
-                //     Rule::unique(Tutor::class, 'email')->ignore(request()->route('record')),
-                // ]),
                     ->unique(ignoreRecord:true), // Unique email validation
 
                 Forms\Components\TextInput::make('hourly_rate')
@@ -49,7 +46,7 @@ class TutorResource extends Resource
                     ->placeholder('Add subjects')
                     ->options(self::$subjects) // Example subjects
                     ->multiple(),
-                
+
                 Forms\Components\FileUpload::make('avatar')
                     ->label('Avatar')
                     ->image()
@@ -88,14 +85,15 @@ class TutorResource extends Resource
                     ->label('Hourly Rate')
                     ->sortable()
                     ->formatStateUsing(fn (string $state): string => "$".$state),
-                
+
                 Tables\Columns\TextColumn::make('subjects')
                     ->label('Subjects')
                     ->sortable()
+                    ->searchable()
                     ->badge()
-                    ->formatStateUsing(fn (string $state) : string => self::$subjects[$state])
+                    ->formatStateUsing(fn (string $state): string => self::$subjects[$state])
             ])
-            
+
             ->filters([
                 //
             ])
