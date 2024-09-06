@@ -31,7 +31,7 @@ class StudentResource extends Resource
                     ->label('Email')
                     ->required()
                     ->email()
-                    ->unique(ignoreRecord: true), // Garante que o email seja único, mas ignora o registro atual durante edição
+                    ->unique(ignoreRecord: true), // Ensures email is unique, but ignores current record when editing
 
                 Forms\Components\Select::make('grade_level')
                     ->label('Grade Level')

@@ -32,9 +32,6 @@ class TutorResource extends Resource
                     ->label('Email')
                     ->required()
                     ->email()
-                //     ->rules([
-                //     Rule::unique(Tutor::class, 'email')->ignore(request()->route('record')),
-                // ]),
                     ->unique(ignoreRecord:true), // Unique email validation
 
                 Forms\Components\TextInput::make('hourly_rate')
