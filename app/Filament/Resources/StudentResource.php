@@ -16,10 +16,21 @@ class StudentResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    private static array $gradeLevels = [ 'Grade 1', 'Grade 2', 'Grade 3', 'Grade 4']; //
+    const GRADE_LEVELS_QTD = 12;
+    private static array $gradeLevels = [];
+                                                                                                                                                      
+    # create a function to, given an int param, return an array with grade levels as: ['Grade 1', 'Grade 2', 'Grade 3', 'Grade 4']
+    private static function generateGradeLevels(){
+        if(!empty(self::$gradeLevels))
+            return null;
+        
+        for($i = 1; $i <= self::GRADE_LEVELS_QTD; $i++)
+            self::$gradeLevels[] = "Grade ".str_pad($i, 2, '0', STR_PAD_LEFT);
+    }
 
     public static function form(Form $form): Form
     {
+        self::generateGradeLevels();
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
@@ -36,12 +47,14 @@ class StudentResource extends Resource
                 Forms\Components\Select::make('grade_level')
                     ->label('Grade Level')
                     ->required()
+                    ->placeholder('Select a grade level')
                     ->options(self::$gradeLevels),
             ]);
     }
 
     public static function table(Table $table): Table
     {
+        self::generateGradeLevels();
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
